@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     id("com.google.dagger.hilt.android")
     id("kotlin-kapt")
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -64,13 +65,13 @@ dependencies {
     kapt(libs.hilt.android.compiler)
 
     // Paging
-    implementation(libs.androidx.paging.runtime.ktx)
+//    implementation(libs.androidx.paging.runtime.ktx)
 
     //Coil
     implementation (libs.coil)
 
     //Koin
-    implementation(libs.koin.android)
+//    implementation(libs.koin.android)
 
     //ViewModel
     val lifecycle_version = "2.8.1"

@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.detail.DetailActivity">
+    android:layout_height="match_parent">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -23,10 +23,12 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
+                    android:id="@+id/image"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="fitXY"
                     android:src="@drawable/ic_launcher_background" />
+
             </RelativeLayout>
 
             <RelativeLayout
@@ -55,14 +57,16 @@
                         android:paddingStart="10dp">
 
                         <TextView
+                            android:id="@+id/name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:text="Rick Sanchez"
                             android:textColor="@color/white"
                             android:textSize="26sp"
-                            android:textStyle="bold"
-                            android:text="Rick Sanchez" />
+                            android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/status"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Alive - Human"
@@ -79,12 +83,13 @@
                             android:textSize="18sp" />
 
                         <TextView
+                            android:id="@+id/gender"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:text="Male"
                             android:textColor="@color/white"
                             android:textSize="18sp"
-                            android:textStyle="normal"
-                            android:text="Male" />
+                            android:textStyle="normal" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -95,12 +100,13 @@
                             android:textSize="18sp" />
 
                         <TextView
+                            android:id="@+id/last_location"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:text="Citadel of Ricks"
                             android:textColor="@color/white"
                             android:textSize="18sp"
-                            android:textStyle="normal"
-                            android:text="Citadel of Ricks" />
+                            android:textStyle="normal" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -111,20 +117,18 @@
                             android:textSize="18sp" />
 
                         <TextView
+                            android:id="@+id/first_Seen_In"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:text="Pilot"
                             android:textColor="@color/white"
                             android:textSize="18sp"
-                            android:textStyle="normal"
-                            android:text="Pilot" />
-
-
+                            android:textStyle="normal" />
 
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,7 @@
 package com.example.imran_mamirov_6_2.utils
 
+import com.example.imran_mamirov_6_2.data.model.Character
+
 sealed class Resource<T> {
     class Loading<T>: Resource<T>()
     class Success<T>(val data: T): Resource<T>()
