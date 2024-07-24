@@ -67,19 +67,21 @@ dependencies {
     // Paging
 //    implementation(libs.androidx.paging.runtime.ktx)
 
-    //Coil
+    // Coil
     implementation (libs.coil)
 
-    //Koin
+    // Koin
 //    implementation(libs.koin.android)
 
     //ViewModel
-    val lifecycle_version = "2.8.1"
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
 
     // Kotlin
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+
+    //  Coroutines
+    implementation(libs.kotlinx.coroutines.android)
 
 }
