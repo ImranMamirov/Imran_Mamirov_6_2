@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.imran_mamirov_6_2.data.model.Character
@@ -15,16 +14,17 @@ import com.example.imran_mamirov_6_2.ui.interfaces.OnClick
 import com.example.imran_mamirov_6_2.utils.Resource
 import com.example.imran_mamirov_6_2.utils.gone
 import com.example.imran_mamirov_6_2.utils.visible
-import dagger.hilt.android.AndroidEntryPoint
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-@AndroidEntryPoint
 class CartoonFragment : Fragment(), OnClick {
 
     private val binding by lazy {
         FragmentCartoonBinding.inflate(layoutInflater)
     }
 
-    private lateinit var viewModel: CartoonViewModel
+    private val viewModel by viewModel<CartoonViewModel>()
+//    private val viewModel1: CartoonViewModel by viewModel()
+
     private lateinit var adapter: CharacterAdapter
 
     override fun onCreateView(
@@ -36,7 +36,7 @@ class CartoonFragment : Fragment(), OnClick {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this)[CartoonViewModel::class.java]
+//        viewModel = ViewModelProvider(this)[CartoonViewModel::class.java]
         adapter = CharacterAdapter(this)
 
         binding.rvCharacters.layoutManager = LinearLayoutManager(context)

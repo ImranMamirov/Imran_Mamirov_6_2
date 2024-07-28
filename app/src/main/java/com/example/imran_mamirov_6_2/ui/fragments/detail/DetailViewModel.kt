@@ -6,11 +6,8 @@ import androidx.lifecycle.liveData
 import com.example.imran_mamirov_6_2.data.model.Character
 import com.example.imran_mamirov_6_2.data.repository.Repository
 import com.example.imran_mamirov_6_2.utils.Resource
-import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 
-@HiltViewModel
-class DetailViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
+class DetailViewModel (private val repository: Repository) : ViewModel() {
 
     fun getById(id: Int): LiveData<Resource<Character>> = liveData {
         emit(Resource.Loading())

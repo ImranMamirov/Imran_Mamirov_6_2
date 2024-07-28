@@ -7,12 +7,9 @@ import androidx.lifecycle.viewModelScope
 import com.example.imran_mamirov_6_2.data.model.Character
 import com.example.imran_mamirov_6_2.data.repository.Repository
 import com.example.imran_mamirov_6_2.utils.Resource
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class CartoonViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
+class CartoonViewModel (private val repository: Repository) : ViewModel() {
 
     private val _characters = MutableLiveData<Resource<List<Character>>>()
     val characters: LiveData<Resource<List<Character>>> get() = _characters
