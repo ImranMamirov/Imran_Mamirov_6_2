@@ -1,7 +1,7 @@
 package com.example.imran_mamirov_6_2
 
 import android.app.Application
-import com.example.imran_mamirov_6_2.di.appModule
+import com.example.imran_mamirov_6_2.module.appModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 

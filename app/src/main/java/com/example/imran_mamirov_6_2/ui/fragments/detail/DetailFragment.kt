@@ -7,20 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import coil.load
-import com.example.imran_mamirov_6_2.data.repository.Repository
 import com.example.imran_mamirov_6_2.databinding.FragmentDetailBinding
-import com.example.imran_mamirov_6_2.di.ApiServiceBuilder
 import com.example.imran_mamirov_6_2.utils.Resource
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailFragment : Fragment() {
 
     private lateinit var binding: FragmentDetailBinding
-    private lateinit var viewModel: DetailViewModel
-    private val apiService = ApiServiceBuilder.apiService
-    private val repository = Repository(apiService)
+    private val viewModel by viewModel<DetailViewModel>()
     private val args: DetailFragmentArgs by navArgs()
 
     override fun onCreateView(
@@ -34,8 +30,7 @@ class DetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val id = args.id
-        viewModel = ViewModelProvider(this, DetailViewModelFactory(repository))[DetailViewModel::class.java]
-
+        Log.e("ololo", "onViewCreated: $id", )
         initView(id)
     }
 
@@ -44,10 +39,8 @@ class DetailFragment : Fragment() {
             when (it) {
                 is Resource.Error -> {
                 }
-
                 is Resource.Loading -> {
                 }
-
                 is Resource.Success -> {
                     val character = it.data
                     name.text = character.name

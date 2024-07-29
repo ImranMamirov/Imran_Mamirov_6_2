@@ -1,4 +1,4 @@
-package com.example.imran_mamirov_6_2.di
+package com.example.imran_mamirov_6_2.module
 
 import com.example.imran_mamirov_6_2.data.api.CartoonApiService
 import okhttp3.OkHttpClient
@@ -51,15 +51,3 @@ fun provideLoggingInterceptor(): HttpLoggingInterceptor =
     HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY
     }
-
-
-object ApiServiceBuilder {
-    private const val BASE_URL = "https://rickandmortyapi.com/api/"
-
-    val retrofit: Retrofit = Retrofit.Builder()
-        .baseUrl(BASE_URL)
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
-
-    val apiService: CartoonApiService = retrofit.create(CartoonApiService::class.java)
-}
