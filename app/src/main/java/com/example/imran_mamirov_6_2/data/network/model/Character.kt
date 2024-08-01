@@ -1,4 +1,4 @@
-package com.example.imran_mamirov_6_2.data.model
+package com.example.imran_mamirov_6_2.data.network.model
 
 import com.google.gson.annotations.SerializedName
 

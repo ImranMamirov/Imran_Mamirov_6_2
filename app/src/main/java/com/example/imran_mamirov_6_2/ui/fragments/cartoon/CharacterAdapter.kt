@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.imran_mamirov_6_2.R
-import com.example.imran_mamirov_6_2.data.model.Character
+import com.example.imran_mamirov_6_2.data.network.model.Character
 import com.example.imran_mamirov_6_2.databinding.ItemCharactersBinding
 import com.example.imran_mamirov_6_2.ui.interfaces.OnClick
 

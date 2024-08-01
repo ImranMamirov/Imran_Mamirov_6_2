@@ -1,6 +1,6 @@
 package com.example.imran_mamirov_6_2.module
 
-import com.example.imran_mamirov_6_2.data.api.CartoonApiService
+import com.example.imran_mamirov_6_2.data.network.api.CartoonApiService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module

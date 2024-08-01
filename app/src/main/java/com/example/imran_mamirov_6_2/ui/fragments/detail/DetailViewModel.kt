@@ -1,9 +1,10 @@
 package com.example.imran_mamirov_6_2.ui.fragments.detail
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
-import com.example.imran_mamirov_6_2.data.model.Character
+import com.example.imran_mamirov_6_2.data.network.model.Character
 import com.example.imran_mamirov_6_2.data.repository.Repository
 import com.example.imran_mamirov_6_2.utils.Resource
 

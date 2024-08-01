@@ -8,69 +8,45 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.imran_mamirov_6_2.data.model.Character
+import com.example.imran_mamirov_6_2.R
+import com.example.imran_mamirov_6_2.data.base.BaseFragment
+import com.example.imran_mamirov_6_2.data.network.model.Character
 import com.example.imran_mamirov_6_2.databinding.FragmentCartoonBinding
 import com.example.imran_mamirov_6_2.ui.interfaces.OnClick
 import com.example.imran_mamirov_6_2.utils.Resource
 import com.example.imran_mamirov_6_2.utils.gone
+import com.example.imran_mamirov_6_2.utils.showToast
 import com.example.imran_mamirov_6_2.utils.visible
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class CartoonFragment : Fragment(), OnClick {
-
-    private val binding by lazy {
-        FragmentCartoonBinding.inflate(layoutInflater)
-    }
+class CartoonFragment : BaseFragment(R.layout.fragment_cartoon), OnClick {
 
     private val viewModel by viewModel<CartoonViewModel>()
-//    private val viewModel1: CartoonViewModel by viewModel()
-
+    private lateinit var binding: FragmentCartoonBinding
     private lateinit var adapter: CharacterAdapter
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-//        viewModel = ViewModelProvider(this)[CartoonViewModel::class.java]
+    override fun setupViews(view: View) {
+        binding = FragmentCartoonBinding.bind(view)
         adapter = CharacterAdapter(this)
-
         binding.rvCharacters.layoutManager = LinearLayoutManager(context)
         binding.rvCharacters.adapter = adapter
+    }
 
-        viewModel.characters.observe(viewLifecycleOwner) { characters ->
-            when (characters) {
-                is Resource.Error -> {
-                    Toast.makeText(requireContext(), characters.message, Toast.LENGTH_SHORT).show()
-                    setProgressVisibility(false)
-                }
-
-                is Resource.Loading -> {
-                    setProgressVisibility(true)
-                }
-
-                is Resource.Success -> {
-                    adapter.submitList(characters.data)
-                    setProgressVisibility(false)
-                }
+    override fun observeViewModel() {
+        viewModel.characters.observe(viewLifecycleOwner) { resource ->
+            binding.progress.apply {
+                if (resource is Resource.Loading) visible() else gone()
+                handleResource(
+                    resource = resource,
+                    onSuccess = { data ->
+                        adapter.submitList(data)
+                    }
+                )
             }
         }
     }
 
-    private fun setProgressVisibility(isVisible: Boolean) {
-        if (isVisible) {
-            binding.progress.visible()
-        } else {
-            binding.progress.gone()
-        }
-    }
-
     override fun onClick(position: Character) {
-
         val action = CartoonFragmentDirections.actionCartoonFragmentToDetailFragment(position.id)
         findNavController().navigate(action)
     }

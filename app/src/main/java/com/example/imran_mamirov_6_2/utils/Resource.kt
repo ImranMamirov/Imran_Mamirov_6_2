@@ -1,6 +1,6 @@
 package com.example.imran_mamirov_6_2.utils
 
-import com.example.imran_mamirov_6_2.data.model.Character
+import com.example.imran_mamirov_6_2.data.network.model.Character
 
 sealed class Resource<T> {
     class Loading<T>: Resource<T>()
