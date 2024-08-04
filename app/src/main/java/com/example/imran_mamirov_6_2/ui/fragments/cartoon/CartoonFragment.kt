@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,31 +20,29 @@ import com.example.imran_mamirov_6_2.utils.showToast
 import com.example.imran_mamirov_6_2.utils.visible
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class CartoonFragment : BaseFragment(R.layout.fragment_cartoon), OnClick {
+class CartoonFragment : BaseFragment<FragmentCartoonBinding>(
+    FragmentCartoonBinding::inflate
+), OnClick {
 
     private val viewModel by viewModel<CartoonViewModel>()
-    private lateinit var binding: FragmentCartoonBinding
-    private lateinit var adapter: CharacterAdapter
+    private val adapter by lazy {
+        CharacterAdapter(this)
+    }
 
     override fun setupViews(view: View) {
-        binding = FragmentCartoonBinding.bind(view)
-        adapter = CharacterAdapter(this)
         binding.rvCharacters.layoutManager = LinearLayoutManager(context)
         binding.rvCharacters.adapter = adapter
     }
 
     override fun observeViewModel() {
-        viewModel.characters.observe(viewLifecycleOwner) { resource ->
-            binding.progress.apply {
-                if (resource is Resource.Loading) visible() else gone()
-                handleResource(
-                    resource = resource,
-                    onSuccess = { data ->
-                        adapter.submitList(data)
-                    }
-                )
+        viewModel.characters.handleResource(
+            isLoading = { visibility ->
+                binding.progress.isVisible = visibility
+            },
+            onSuccess =  { data ->
+                adapter.submitList(data)
             }
-        }
+        )
     }
 
     override fun onClick(position: Character) {

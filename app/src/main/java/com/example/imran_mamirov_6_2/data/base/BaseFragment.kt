@@ -8,19 +8,25 @@ import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import androidx.viewbinding.ViewBinding
 import com.example.imran_mamirov_6_2.utils.Resource
 import com.example.imran_mamirov_6_2.utils.showToast
 
-abstract class BaseFragment(@LayoutRes private val layoutResId: Int) : Fragment() {
+typealias Inflate<T> = (LayoutInflater, ViewGroup?, Boolean) -> T
 
-    private lateinit var binding: View
+abstract class BaseFragment<VB: ViewBinding>(
+    private val inflate: Inflate<VB>
+) : Fragment() {
+
+    private var _binding: VB? = null
+    val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = inflater.inflate(layoutResId, container, false)
-        return binding
+        _binding = inflate.invoke(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -35,28 +41,27 @@ abstract class BaseFragment(@LayoutRes private val layoutResId: Int) : Fragment(
     protected open fun observeViewModel() {
     }
 
-    protected fun <T> handleResource(
-        resource: Resource<T>,
+    protected fun <T> LiveData<Resource<T>>.handleResource(
+        isLoading: (Boolean) -> Unit,
         onSuccess: (T?) -> Unit
     ) {
-        when (resource) {
-            is Resource.Loading -> {
-            }
-            is Resource.Success -> {
-                onSuccess(resource.data)
-            }
-            is Resource.Error -> {
-                showToast(resource.message)
+        this.observe(viewLifecycleOwner) { resource ->
+            isLoading.invoke(resource is Resource.Loading)
+            when (resource) {
+                is Resource.Loading -> {
+                }
+                is Resource.Success -> {
+                    onSuccess(resource.data)
+                }
+                is Resource.Error -> {
+                    showToast(resource.message)
+                }
             }
         }
     }
 
-    protected fun <T> observeResource(
-        liveData: LiveData<Resource<T>>,
-        onSuccess: (T?) -> Unit
-    ) {
-        liveData.observe(viewLifecycleOwner, Observer { resource ->
-            handleResource(resource, onSuccess)
-        })
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }
